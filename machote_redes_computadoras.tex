@@ -1,0 +1,191 @@
+\documentclass[12pt, letterpaper]{article}
+
+% --- IDIOMA Y FUENTES ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel}
+
+% --- FORMATO GENERAL ---
+\usepackage{geometry}
+% Configuración de márgenes
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{atbegshi} 
+\usepackage{eso-pic}
+\usetikzlibrary{calc}
+
+%--- DEFINICIÓN DE COLORES ---
+\definecolor{VerdeMilitar}{RGB}{75, 83, 32}
+
+% --- COLORES Y ESTILO DE CÓDIGO ---
+\definecolor{termback}{rgb}{0.95,0.95,0.95}
+\lstset{
+    backgroundcolor=\color{termback},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    captionpos=b
+}
+
+% --- CONFIGURACIÓN DE HYPERREF ---
+\usepackage{hyperref}
+\hypersetup{ % Quitar bordes rojos de hipervínculos
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+% --- ENCABEZADO Y PIE ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize Redes de Computadoras}
+\chead{\footnotesize \codigoActividad: \tituloTaller}
+\rhead{\footnotesize Equipo \equipoNumero}
+\cfoot{\thepage}
+
+\renewcommand{\headrule}{%
+    {\color{VerdeMilitar}\hrule width\headwidth height 0.5pt \vskip-\headrulewidth}
+}
+
+% --- TABLA DE CONTENIDO ---
+\addto\captionsspanish{\renewcommand{\contentsname}{Lista de contenido}}
+
+% --- DATOS DEL TRABAJO ---
+\newcommand{\tituloTaller}{Nombre del Taller}
+\newcommand{\unidadNumero}{X}
+\newcommand{\semanaNumero}{X}
+\newcommand{\codigoActividad}{TSX}
+\newcommand{\equipoNumero}{05}
+
+% --- INTEGRANTES ---
+\newcommand{\integranteA}{Moya Monreal Erick Anselmo --- 1110604}
+\newcommand{\integranteB}{Rodríguez Maldonado Irving Alejandro --- 1182794}
+% Agrega más si es necesario
+
+% Marco Elegante
+\newcommand{\LogosMarco}{
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw [line width=1.2pt, color=VerdeMilitar!90] 
+            ($(current page.north west) + (0.7cm,-0.7cm)$) 
+            rectangle 
+            ($(current page.south east) + (-0.7cm,0.7cm)$);
+        \draw [line width=0.6pt, color=VerdeMilitar!60] 
+            ($(current page.north west) + (0.85cm,-0.85cm)$) 
+            rectangle 
+            ($(current page.south east) + (-0.85cm,0.85cm)$);
+    \end{tikzpicture}
+}
+
+%==================================================================
+
+\begin{document}
+
+% --- PORTADA ---
+\begin{titlepage}
+    \begin{center}
+    \includegraphics[width=4cm]{logo.png}
+    \hspace{1cm}
+    \includegraphics[width=5cm]{1593484343817.jpg}
+    \vspace{1.5cm}
+
+    \LARGE \textbf{Universidad Autónoma de Baja California}\\
+    \Large Facultad de Ingeniería Mexicali\\
+    \Large Ingeniería en Computación\\
+    \vspace{0.7cm}
+
+    {\color{VerdeMilitar}\rule{\linewidth}{0.5mm}} \\
+    \large \textbf{Reporte de Actividad:}\\
+    \vspace{0.1cm}
+    {\Huge {\tituloTaller} }\\
+    {\color{VerdeMilitar}\rule{\linewidth}{0.5mm}}
+
+    \vspace{0.7cm}
+    \begin{minipage}{0.45\textwidth}
+        \textbf{Materia:}\\ Redes de Computadoras\\
+        \textbf{Unidad:} \unidadNumero \quad \textbf{Semana:} \semanaNumero
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \flushright
+        \textbf{Profesor:}\\ Mtro. Emmanuel Zúñiga Torres
+    \end{minipage}
+      
+    \vfill           
+    \textbf{EQUIPO \equipoNumero :}\\
+    \vspace{0.3cm}
+    {\color{VerdeMilitar}\rule{4cm}{0.1mm}}\\
+    \integranteA \\
+    \integranteB \\
+            
+    \vspace{1.5cm}
+    \vfill
+    Mexicali, Baja California\\ \today
+    \end{center}
+\end{titlepage}
+
+\newpage
+\AddToShipoutPictureBG{\LogosMarco}
+\tableofcontents
+
+% --- SECCIÓN 1: INTRODUCCIÓN ---
+\newpage
+\section{Introducción}
+Aquí se presenta el contexto del taller, los recursos utilizados y el objetivo
+general de la actividad. Este apartado debe permitir al lector comprender
+qué se hizo y con qué propósito.
+
+% --- SECCIÓN 2: DESARROLLO DEL TALLER ---
+\newpage
+\section{Desarrollo de la Actividad}
+
+\subsection{Tema o Apartado 1}
+Desarrollo del contenido principal del taller.
+
+\subsection{Tema o Apartado 2}
+Explicaciones técnicas, análisis, observaciones, etc.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{taller1/google_servers.png}
+    \caption{Descripción de la imagen. Imagen de prueba.}
+\end{figure}
+
+% --- SECCIÓN 3: CONCLUSIONES ---
+\newpage
+\section{Conclusiones}
+Conclusión general o conclusiones individuales sobre lo aprendido,
+los aspectos más relevantes del taller y su importancia en el contexto
+de la materia.
+
+\newpage
+\addcontentsline{toc}{section}{Referencias}
+\begin{thebibliography}{9}
+
+\bibitem{ref1}
+Autor o Institución. \textit{Título del recurso}.
+Recuperado de: \url{https://...}
+
+\bibitem{ref2}
+Autor o Institución. \textit{Título del recurso}.
+Recuperado de: \url{https://...}
+
+\end{thebibliography}
+
+%             Y en el texto se citan así:
+%... como se muestra en diversos centros de datos \cite{ref1}.
+%==================================================================
+
+\end{document}

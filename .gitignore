@@ -1,0 +1,20 @@
+# Archivos temporales de LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de instaladores
+*.exe
+
+# Archivos grandes de libros (opcional)
+*.pdf
+!machote_redes_computadoras.pdf
+!taller1/TS1_5.pdf
