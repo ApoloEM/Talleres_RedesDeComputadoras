@@ -1,0 +1,309 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[spanish, es-tabla]{babel} 
+\addto\captionsspanish{\renewcommand{\contentsname}{Lista de contenido}}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{atbegshi}
+\usepackage{eso-pic}
+\usetikzlibrary{calc}
+\definecolor{VerdeMilitar}{RGB}{75, 83, 32}
+\setlength{\parskip}{1\baselineskip}
+\usepackage{microtype}
+\usepackage{multicol}
+
+% Configuración de márgenes
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+% Quitar bordes rojos de hipervínculos
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+% --- COLORES Y ESTILO DE CÓDIGO ---
+\definecolor{termback}{rgb}{0.95,0.95,0.95}
+\lstset{
+    backgroundcolor=\color{termback},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    captionpos=b
+}
+
+% --- DATOS DEL TALLER ---
+\newcommand{\tituloTaller}{Conocer un Centro de Datos}
+\newcommand{\unidadNumero}{1}
+\newcommand{\semanaNumero}{1}
+\newcommand{\codigoActividad}{TS1} 
+\newcommand{\equipoNumero}{05}      
+\newcommand{\integranteA}{Moya Monreal Erick Anselmo --- 1110604}
+\newcommand{\integranteB}{Rodríguez Maldonado Irving Alejandro --- 1182794}
+
+% Marco Elegante
+\newcommand{\LogosMarco}{
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw [line width=1.2pt, color=VerdeMilitar!90] 
+            ($(current page.north west) + (0.7cm,-0.7cm)$) 
+            rectangle 
+            ($(current page.south east) + (-0.7cm,0.7cm)$);
+        \draw [line width=0.6pt, color=VerdeMilitar!60] 
+            ($(current page.north west) + (0.85cm,-0.85cm)$) 
+            rectangle 
+            ($(current page.south east) + (-0.85cm,0.85cm)$);
+    \end{tikzpicture}
+}
+
+% --- ENCABEZADO ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize Redes de Computadoras}
+\chead{\footnotesize \codigoActividad: \tituloTaller}
+\rhead{\footnotesize Equipo \equipoNumero}
+\cfoot{\thepage}
+
+\renewcommand{\headrule}{%
+    {\color{VerdeMilitar}\hrule width\headwidth height 0.5pt \vskip-\headrulewidth}
+}
+
+\begin{document}
+
+% --- PORTADA ---
+\begin{titlepage}
+	\begin{center}
+		\includegraphics[width=4cm]{../logo.png}
+		\hspace{1cm}
+		\includegraphics[width=5cm]{../1593484343817.jpg}
+		\vspace{1.5cm}
+
+		\LARGE \textbf{Universidad Autónoma de Baja California}\\
+		\Large Facultad de Ingeniería Mexicali\\
+		\Large Ingeniería en Computación\\
+		\vspace{0.7cm}
+
+		{\color{VerdeMilitar}\rule{\linewidth}{0.5mm}} \\
+		\large \textbf{Reporte de Actividad:}\\
+		\vspace{0.1cm}
+		{\Huge {\tituloTaller} }\\
+		{\color{VerdeMilitar}\rule{\linewidth}{0.5mm}}
+
+		\vspace{0.7cm}
+		\begin{minipage}{0.45\textwidth}
+			\textbf{Materia:}\\ Redes de Computadoras\\
+			\textbf{Unidad:} \unidadNumero \quad \textbf{Semana:} \semanaNumero
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\flushright
+			\textbf{Profesor:}\\ Mtro. Emmanuel Zúñiga Torres
+		\end{minipage}
+
+		\vfill
+		\textbf{EQUIPO \equipoNumero :}\\
+		\integranteA \\
+		\integranteB \\
+		\vspace{0.5cm}
+		{\color{VerdeMilitar}\rule{4cm}{0.1mm}}\\
+		Mexicali, Baja California\\ \today
+	\end{center}
+\end{titlepage}
+
+\newpage
+\AddToShipoutPictureBG{\LogosMarco}
+\tableofcontents
+\newpage
+
+% --- SECCIÓN 1: INTRODUCCIÓN ---
+\section{Introducción}
+
+Para la realización de este taller se utilizaron los recursos electrónicos proporcionados por el profesor a través de la plataforma Classroom. Dichos recursos se organizaron en tres ejes temáticos principales: Centros de Datos, Estándares en Centros de Datos y Tipos de Cómputo en la Nube.
+
+Durante la sesión de clase se visualizaron los materiales audiovisuales, mientras se realizaba la toma de notas enfocada en los aspectos más relevantes. El profesor destacó una serie de criterios clave que debían considerarse para el análisis y desarrollo del presente reporte, entre los cuales se incluyen:
+
+\begin{multicols}{2}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item Acceso exterior y disposición de la seguridad perimetral, así como su estructuración por capas.
+	\item Planes de respuesta ante emergencias y eventualidades.
+	\item Accesos interiores y medidas de seguridad para áreas restringidas del centro de datos.
+	\item Distribución de la infraestructura y organización de los servidores.
+	\item Seguridad de la información.
+	\item Volúmenes de hardware, ancho de banda y medios de transmisión, principalmente fibra óptica.
+	\item Distribución geográfica de los centros de datos a nivel global.
+	\columnbreak
+	\item Procesos de destrucción física de datos y manejo de residuos.
+	\item Sistemas de refrigeración, considerando las variaciones climáticas.
+	\item Sistemas de alimentación eléctrica y mecanismos de respaldo.
+	\item Niveles de acceso y personal autorizado.
+	\item Protección de los datos mediante técnicas de encriptación.
+	\item Certificaciones que cumplen los centros de datos.
+	\item Sostenibilidad financiera de la operación.
+\end{enumerate}
+\end{multicols}
+
+Posteriormente, se analizó una imagen esquemática representativa de un centro de datos típico, identificando sus principales componentes y relacionándolos con los elementos observados en los recursos audiovisuales revisados.
+
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.7\textwidth]{Representación Centro de Datos RdC 1U.png}}
+	\caption{Esquema de un Centro de Datos típico.}
+\end{figure}
+
+Asimismo, se estudiaron los diferentes estándares que regulan la construcción y operación de los centros de datos, haciendo énfasis en su preparación ante fallos, emergencias y escenarios críticos. Finalmente, se discutieron los distintos tipos de cómputo en la nube, junto con sus ventajas, desventajas, modelos de servicio y despliegue más comunes, así como la rentabilidad de los centros de datos desde la perspectiva empresarial y su viabilidad económica para cualquier negocio o empresa.
+
+\newpage
+% --- SECCIÓN 2: DESARROLLO DEL TALLER ---
+\section{Desarrollo}
+
+\subsection{Características Físicas del Centro de Datos}
+
+Los centros de datos analizados se caracterizan por una infraestructura física diseñada para operar de forma continua, segura y tolerante a fallos \cite{video-360, google-dc}. La ubicación del sitio, la disposición del perímetro y la segmentación de áreas internas responden a criterios de seguridad, eficiencia operativa y control de riesgos.
+
+El perímetro exterior cuenta con barreras físicas, señalización, vigilancia permanente y sistemas de detección, lo que permite prevenir accesos no autorizados desde el primer nivel. Internamente, el diseño del centro de datos separa claramente las áreas administrativas, técnicas y críticas, restringiendo progresivamente el acceso conforme se avanza hacia el piso de datos.
+
+La disposición física de los servidores se organiza en racks de alta densidad, alineados para optimizar el flujo de aire frío y caliente, reduciendo puntos de sobrecalentamiento y mejorando la eficiencia energética del recinto.
+
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.7\textwidth]{google_servers.png}}
+	\caption{Visualización de racks de alta densidad y cableado de fibra óptica en un centro de datos de Google.}
+\end{figure}
+
+\subsection{Infraestructura, Respaldo y Manejo de Eventualidades}
+
+La infraestructura tecnológica está compuesta por miles de servidores personalizados, sistemas de almacenamiento distribuido y redes de alta velocidad basadas principalmente en fibra óptica. El ancho de banda disponible es un elemento crítico, permitiendo la transmisión masiva de datos a escala global con latencias mínimas.
+
+Para garantizar la continuidad operativa ante fallos, los centros de datos implementan múltiples niveles de respaldo. En el suministro eléctrico se utilizan sistemas UPS, bancos de baterías y generadores de emergencia que permiten mantener la operación incluso ante interrupciones prolongadas del servicio eléctrico externo.
+
+El manejo de eventualidades y emergencias incluye planes de continuidad del negocio y recuperación ante desastres, los cuales contemplan fallos eléctricos, incendios, inundaciones, sismos y otras inclemencias. Estos planes se apoyan en estándares internacionales que definen los niveles de redundancia, disponibilidad y tolerancia a fallos que debe cumplir un centro de datos moderno.
+
+\subsection{Ventilación, Refrigeración y Disposición Física}
+
+La ventilación y la refrigeración son elementos esenciales debido a la alta densidad de hardware y la generación constante de calor. Los sistemas de enfriamiento varían según el clima de la región, empleando desde enfriamiento por aire exterior hasta circuitos de agua y torres de evaporación.
+
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.7\textwidth]{chillers.jpg}}
+	\caption{Esquema de sistemas de enfriamiento en un centro de datos.}
+\end{figure}
+
+La disposición física de los equipos sigue el principio de pasillos fríos y calientes, permitiendo dirigir el flujo de aire de manera eficiente y reducir el consumo energético. Estos sistemas están monitoreados constantemente para detectar variaciones de temperatura y responder de forma automática ante cualquier anomalía.
+
+\subsection{Seguridad en Capas y Estándares Aplicables}
+
+La seguridad del centro de datos se estructura mediante un enfoque de seguridad en capas \cite{video-seguridad}, donde cada nivel añade un control adicional que limita el acceso únicamente al personal autorizado. Este modelo reduce significativamente la probabilidad de intrusión y errores humanos.
+
+Los estándares más relevantes en este contexto incluyen aquellos relacionados con la infraestructura, la seguridad de la información y la continuidad del servicio, los cuales establecen lineamientos claros para la respuesta ante emergencias, incendios y fallos críticos. La certificación bajo estos estándares garantiza que el centro de datos cumpla con prácticas reconocidas a nivel internacional.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|p{10cm}|}
+		\hline
+		\textbf{Capa de Seguridad} & \textbf{Descripción}                                         \\ \hline
+		Perímetro                  & Vallas, vigilancia física y control de accesos externos.     \\ \hline
+		Acceso al edificio         & Controles de identidad y sistemas biométricos.               \\ \hline
+		Áreas internas             & Segmentación de zonas y acceso restringido.                  \\ \hline
+		Piso de datos              & Acceso exclusivo a personal técnico autorizado.              \\ \hline
+		Destrucción de medios      & Eliminación física segura de dispositivos de almacenamiento. \\ \hline
+	\end{tabular}
+	\caption{Ejemplo de estructura de seguridad en capas en un centro de datos.}
+\end{table}
+
+A continuación, se muestra la relación entre las capas de seguridad física observadas y algunos de los estándares internacionales que regulan su implementación.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|p{10cm}|}
+		\hline
+		\textbf{Capa de Seguridad}  & \textbf{Estándar Asociado}     \\ \hline
+		Perímetro                   & ISO/IEC 22237, ANSI/TIA-942    \\ \hline
+		Acceso al edificio          & ISO/IEC 27001                  \\ \hline
+		Áreas internas              & Uptime Institute Tier Standard \\ \hline
+		Piso de datos               & ISO/IEC 27001                  \\ \hline
+		Protección contra incendios & NFPA 75 / NFPA 76              \\ \hline
+	\end{tabular}
+	\caption{Relación entre capas de seguridad física y estándares aplicables.}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.75\textwidth]{seguridad_capas_google.png}}
+	\caption{Ejemplo de seguridad en capas en un centro de datos.}
+\end{figure}
+
+\subsection{Control de la Información y Protección de Datos}
+
+El control de la información es un aspecto crítico en la operación de los centros de datos, ya que estos manejan grandes volúmenes de información sensible perteneciente a usuarios y organizaciones. Para garantizar la privacidad, los datos se protegen mediante técnicas de encriptación tanto en tránsito como en reposo.
+
+El acceso a la información está estrictamente regulado mediante políticas de autorización y monitoreo continuo. En caso de que los dispositivos de almacenamiento lleguen al final de su vida útil o presenten fallos, se aplican procesos de destrucción física controlada, asegurando que la información no pueda ser recuperada.
+
+Estas medidas permiten resguardar la confidencialidad, integridad y disponibilidad de los datos, cumpliendo con los requisitos legales, técnicos y éticos asociados al manejo de la información digital.
+
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.6\textwidth]{disk_shredder.png}}
+	\caption{Proceso de trituración física de discos duros para la eliminación segura de datos residuales.}
+\end{figure}
+
+\subsection{Modelos de Cómputo en la Nube y Rentabilidad}
+
+Finalmente, se analizaron los modelos de cómputo en la nube, particularmente el enfoque \textit{Everything as a Service} (XaaS) \cite{redhat-cloud}, que permite a las organizaciones acceder a recursos tecnológicos bajo demanda. Estos modelos reducen costos de inversión inicial, delegan la gestión de infraestructura al proveedor y mejoran la escalabilidad de los servicios.
+
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.7\textwidth]{esquema de servicios nube.png}}
+	\caption{Modelos de servicio en la computación en la nube.}
+\end{figure}
+
+Desde una perspectiva empresarial, la rentabilidad de los centros de datos se fundamenta en la optimización de recursos, la automatización de procesos y la capacidad de ofrecer servicios confiables a gran escala, convirtiéndose en un elemento clave para la competitividad de cualquier negocio o empresa.
+
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.7\textwidth]{ejemplos_de_servicios en la nube.png}}
+	\caption{Ejemplos de servicios de computación en la nube.}
+\end{figure}
+
+\newpage
+\section{Conclusiones}
+El análisis de los centros de datos permitió comprender que estos no son únicamente espacios destinados al almacenamiento de información, sino infraestructuras altamente controladas, diseñadas para operar de manera continua y segura bajo cualquier circunstancia. Uno de los aspectos que más destaca es el nivel de seguridad implementado, tanto en el acceso exterior como en las áreas internas, donde el ingreso se restringe de forma progresiva hasta limitar el acceso al piso de datos a un porcentaje mínimo del personal autorizado.
+
+Otro punto relevante es la forma en que se protege la información. La destrucción física de los dispositivos de almacenamiento, como los discos duros, evidencia la importancia que se le da a evitar cualquier recuperación de datos una vez que estos dejan de ser utilizables. Este proceso, junto con el manejo adecuado de residuos y reciclaje de materiales, refleja una preocupación no solo por la seguridad de la información, sino también por el impacto ambiental de la operación.
+
+Asimismo, resulta evidente la importancia de los sistemas de respaldo y de los planes de respuesta ante emergencias. La presencia de múltiples fuentes de alimentación, sistemas de respaldo energético y mecanismos de recuperación ante fallos permite que los centros de datos continúen operando incluso ante eventos críticos como cortes eléctricos o desastres naturales. Esto demuestra que la confiabilidad del servicio depende en gran medida de la preparación previa ante escenarios adversos.
+
+En conjunto, el recorrido y análisis de un centro de datos permitió identificar que su diseño, operación y mantenimiento están orientados a garantizar la disponibilidad constante de los servicios, la protección de la información y la minimización de riesgos. Estos elementos, que no siempre son visibles para el usuario final, resultan fundamentales para el funcionamiento de los servicios digitales que forman parte de la vida cotidiana.
+
+
+\newpage
+\addcontentsline{toc}{section}{Referencias}
+\begin{thebibliography}{9}
+
+	\bibitem{video-seguridad} Google Cloud. \textit{Data Center Security: 6 Layers Deep}. [Archivo de video]. Recuperado de: \url{https://youtu.be/kd33UVZhnAA}
+
+	\bibitem{video-360} Google Cloud. \textit{Google Data Center 360° Tour}. [Archivo de video]. Recuperado de: \url{https://youtu.be/zDAYZU4A3w0}
+
+	\bibitem{google-dc} Google Data Centers. \textit{Infraestructura y Seguridad Global}. Recuperado de: \url{https://datacenters.google/intl/es-419/}
+
+	\bibitem{video-telmex} Telmex. \textit{Centros de Datos de Clase Mundial}. [Archivo de video]. Recuperado de: \url{https://www.youtube.com/watch?v=jsrv4eiT_ro}
+
+	\bibitem{redhat-cloud} Red Hat. \textit{Cloud Computing: Public, Private and Hybrid}. Recuperado de: \url{https://www.redhat.com/es/topics/cloud-computing/}
+
+	\bibitem{google-sustainability} Google. \textit{Sustainability in Data Centers}. Recuperado de: \url{https://datacenters.google/efficiency/}
+
+\end{thebibliography}
+
+\end{document}
