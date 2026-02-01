@@ -29,43 +29,115 @@
 }
 
 \setlength{\parskip}{1\baselineskip} % Espacio entre párrafos
-\usepackage{microtype} % Mejora la justificación del texto
-\usepackage{graphicx} % Imágenes
-\usepackage{float}    % Control de posición de figuras
-\usepackage{enumitem} % Listas personalizadas
-\usepackage{listings} % Código fuente
-\usepackage{xcolor}   % Colores
-\usepackage{tikz}     % Dibujos y marcos
-\usepackage{eso-pic}  % Elementos de fondo (marco)
-\usepackage{titlesec} % Formato de títulos
-\usepackage{multicol} % Múltiples columnas
-\usetikzlibrary{calc} % Cálculos en TikZ (para el marco)
+\usepackage{microtype}   % Mejora la justificación del texto
+\usepackage{graphicx}    % Imágenes
+\usepackage{float}       % Control de posición de figuras
+\usepackage{enumitem}    % Listas personalizadas
+\usepackage{listings}    % Código fuente
+\usepackage{xcolor}      % Colores
+\usepackage{tikz}        % Dibujos y marcos
+\usepackage{eso-pic}     % Elementos de fondo (marco)
+\usepackage{titlesec}    % Formato de títulos
+\usepackage{multicol}    % Múltiples columnas
+\usepackage{booktabs}    % Tablas profesionales
+\usepackage{array}       % Columnas personalizadas en tablas
+\usetikzlibrary{calc}    % Cálculos en TikZ (para el marco)
 
 %==================================================================
 % COLORES Y ESTILO VISUAL
 % Paleta usada en encabezados, marcos y líneas decorativas
 %==================================================================
 \definecolor{VerdeMilitar}{RGB}{75, 83, 32}
+\definecolor{termback}{rgb}{0.95,0.95,0.95}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{ipcolor}{RGB}{0, 102, 204}      % Azul para IPs
+\definecolor{protocolor}{RGB}{204, 0, 102}   % Magenta para protocolos
+\definecolor{portcolor}{RGB}{0, 153, 76}     % Verde para puertos
 
 %==================================================================
-% ESTILO PARA BLOQUES DE CÓDIGO
-% Configurar según necesidades del taller
+% CONFIGURACIÓN DE LISTINGS PARA CÓDIGO DE REDES
+% Estilos predefinidos para comandos de terminal y configuraciones
 %==================================================================
-\definecolor{termback}{rgb}{0.95,0.95,0.95}
-\lstset{
+
+% Estilo base común para todos los tipos de código
+\lstdefinestyle{baseStyle}{
     backgroundcolor=\color{termback},
+    commentstyle=\color{codegreen}\itshape,
+    numberstyle=\tiny\color{gray},
     basicstyle=\ttfamily\small,
     breaklines=true,
     frame=single,
-    captionpos=b
+    captionpos=b,
+    numbers=left,
+    numbersep=8pt,
+    tabsize=4,
+    showstringspaces=false
 }
+
+% Estilo para comandos Bash/Terminal
+\lstdefinestyle{bashStyle}{
+    style=baseStyle,
+    language=bash,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{codepurple},
+    morekeywords={ping, traceroute, ifconfig, ip, netstat, ss, nmap, tcpdump, wireshark, iptables, route, nslookup, dig, host, curl, wget},
+    commentstyle=\color{codegreen}\itshape,
+    morecomment=[l]{\#}
+}
+
+% Estilo para archivos de configuración de red
+\lstdefinestyle{configStyle}{
+    style=baseStyle,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{codepurple},
+    commentstyle=\color{codegreen}\itshape,
+    morecomment=[l]{\#}
+}
+
+% Estilo para salida de terminal (sin resaltado de sintaxis)
+\lstdefinestyle{outputStyle}{
+    style=baseStyle,
+    keywordstyle=\color{black},
+    numbers=none,
+    frame=none,
+    backgroundcolor=\color{black!5}
+}
+
+% Configuración por defecto (usa bashStyle)
+\lstset{style=bashStyle}
+
+%==================================================================
+% COMANDOS PERSONALIZADOS PARA NETWORKING
+% Facilitan el formateo consistente de elementos de red en el texto
+%==================================================================
+
+% Comando para direcciones IP (muestra en azul)
+% Uso: \ip{192.168.1.1}
+\newcommand{\ip}[1]{\texttt{\textcolor{ipcolor}{#1}}}
+
+% Comando para protocolos (muestra en magenta y negrita)
+% Uso: \proto{TCP}, \proto{HTTP}
+\newcommand{\proto}[1]{\texttt{\textbf{\textcolor{protocolor}{#1}}}}
+
+% Comando para puertos (muestra en verde)
+% Uso: \port{80}, \port{443}
+\newcommand{\port}[1]{\texttt{\textcolor{portcolor}{#1}}}
+
+% Comando para comandos de red en línea (muestra en negrita)
+% Uso: \cmd{ping}, \cmd{ifconfig}
+\newcommand{\cmd}[1]{\texttt{\textbf{#1}}}
+
+% Comando para interfaces de red (muestra en cursiva)
+% Uso: \iface{eth0}, \iface{wlan0}
+\newcommand{\iface}[1]{\texttt{\textit{#1}}}
 
 %==================================================================
 % HIPERVÍNCULOS
 % Activa enlaces en tabla de contenido y referencias
 %==================================================================
 \usepackage{hyperref}
-\hypersetup{ % Quitar bordes rojos de hipervínculos
+\hypersetup{
     colorlinks=true,
     linkcolor=black,
     urlcolor=blue,
@@ -89,6 +161,23 @@
 \renewcommand{\headrule}{
     {\color{VerdeMilitar}\hrule width\headwidth height 0.5pt \vskip-\headrulewidth}
 }
+
+%==================================================================
+% FORMATO DE TÍTULOS
+% Los títulos de sección se muestran en color VerdeMilitar
+% Subsecciones y subsubsecciones en negro
+%==================================================================
+\titleformat{\section}
+    {\large\bfseries\color{VerdeMilitar}}
+    {\thesection.}{1em}{}
+    
+\titleformat{\subsection}
+    {\normalsize\bfseries}
+    {\thesubsection.}{1em}{}
+
+\titleformat{\subsubsection}
+    {\small\bfseries}
+    {\thesubsubsection.}{1em}{}
 
 %==================================================================
 % TABLA DE CONTENIDO
@@ -133,46 +222,46 @@
 % INICIO DEL DOCUMENTO
 %==================================================================
 \begin{document}
-
+\AddToShipoutPictureBG*{\LogosMarco}
 %==================================================================
 % PORTADA
 %==================================================================
 \begin{titlepage}
-	\begin{center}
-		\includegraphics[width=4cm]{logo.png}
-		\hspace{1cm}
-		\includegraphics[width=5cm]{1593484343817.jpg}
-		\vspace{1.5cm}
+    \begin{center}
+        \includegraphics[width=4cm]{../recursos/logo.png}
+        \hspace{1cm}
+        \includegraphics[width=5cm]{../recursos/1593484343817.jpg}
+        \vspace{1.5cm}
 
-		\LARGE \textbf{Universidad Autónoma de Baja California}\\
-		\Large Facultad de Ingeniería Mexicali\\
-		\Large Ingeniería en Computación\\
-		\vspace{0.7cm}
+        \LARGE \textbf{Universidad Autónoma de Baja California}\\
+        \Large Facultad de Ingeniería Mexicali\\
+        \Large Ingeniería en Computación\\
+        \vspace{0.7cm}
 
-		{\color{VerdeMilitar}\rule{\linewidth}{0.5mm}} \\
-		\large \textbf{Reporte de Actividad:}\\
-		\vspace{0.1cm}
-		{\Huge {\tituloTaller} }\\
-		{\color{VerdeMilitar}\rule{\linewidth}{0.5mm}}
+        {\color{VerdeMilitar}\rule{\linewidth}{0.5mm}} \\
+        \large \textbf{Reporte de Actividad:}\\
+        \vspace{0.1cm}
+        {\Huge {\tituloTaller} }\\
+        {\color{VerdeMilitar}\rule{\linewidth}{0.5mm}}
 
-		\vspace{0.7cm}
-		\begin{minipage}{0.45\textwidth}
-			\textbf{Materia:}\\ Redes de Computadoras\\
-			\textbf{Unidad:} \unidadNumero \quad \textbf{Semana:} \semanaNumero
-		\end{minipage}
-		\begin{minipage}{0.45\textwidth}
-			\flushright
-			\textbf{Profesor:}\\ Mtro. Emmanuel Zúñiga Torres
-		\end{minipage}
+        \vspace{0.7cm}
+        \begin{minipage}{0.45\textwidth}
+            \textbf{Materia:}\\ Redes de Computadoras\\
+            \textbf{Unidad:} \unidadNumero \quad \textbf{Semana:} \semanaNumero
+        \end{minipage}
+        \begin{minipage}{0.45\textwidth}
+            \flushright
+            \textbf{Profesor:}\\ Mtro. Emmanuel Zúñiga Torres
+        \end{minipage}
 
-		\vfill
-		\textbf{EQUIPO \equipoNumero :}\\
-		\integranteA \\
-		\integranteB \\
-		\vspace{0.5cm}
-		{\color{VerdeMilitar}\rule{4cm}{0.1mm}}\\
-		Mexicali, Baja California\\ \today
-	\end{center}
+        \vfill
+        \textbf{EQUIPO \equipoNumero :}\\
+        \integranteA \\
+        \integranteB \\
+        \vspace{0.5cm}
+        {\color{VerdeMilitar}\rule{4cm}{0.1mm}}\\
+        Mexicali, Baja California\\ \today
+    \end{center}
 \end{titlepage}
 
 %==================================================================
@@ -191,6 +280,10 @@ Aquí se presenta el contexto del taller, los recursos utilizados y el objetivo
 general de la actividad. Este apartado debe permitir al lector comprender
 qué se hizo y con qué propósito.
 
+Ejemplo de uso de comandos personalizados: El servidor con IP \ip{192.168.1.100} 
+escucha peticiones \proto{HTTP} en el puerto \port{80} a través de la interfaz 
+\iface{eth0}.
+
 %==================================================================
 % SECCIÓN 2: DESARROLLO DEL TALLER
 %==================================================================
@@ -200,14 +293,85 @@ qué se hizo y con qué propósito.
 %\begin{multicols}{2}
 \subsection{Tema o Apartado 1}
 Desarrollo del contenido principal del taller.
+
 %\columnbreak
 \subsection{Tema o Apartado 2}
 Explicaciones técnicas, análisis, observaciones, etc.
 
+%==================================================================
+% EJEMPLO DE CÓDIGO BASH/TERMINAL
+% Usa style=bashStyle para comandos de red
+%==================================================================
+\begin{lstlisting}[style=bashStyle, caption=Ejemplo de comandos de diagnóstico de red, label=lst:bash_example]
+# Verificar conectividad con un servidor
+ping -c 4 8.8.8.8
+
+# Mostrar interfaces de red activas
+ip addr show
+
+# Trazar la ruta a un destino
+traceroute google.com
+
+# Ver conexiones de red activas
+netstat -tuln
+\end{lstlisting}
+
+%==================================================================
+% EJEMPLO DE SALIDA DE TERMINAL
+% Usa style=outputStyle para mostrar salidas sin resaltado
+%==================================================================
+\begin{lstlisting}[style=outputStyle, caption=Salida del comando ping]
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=12.3 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=11.8 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=12.1 ms
+\end{lstlisting}
+
+%==================================================================
+% EJEMPLO DE ARCHIVO DE CONFIGURACIÓN
+% Usa style=configStyle para archivos de configuración
+%==================================================================
+\begin{lstlisting}[style=configStyle, caption=Configuración de interfaz de red]
+# Configuracion estatica de eth0
+auto eth0
+iface eth0 inet static
+    address 192.168.1.100
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+    dns-nameservers 8.8.8.8 8.8.4.4
+\end{lstlisting}
+
+%==================================================================
+% EJEMPLO DE TABLA CON BOOKTABS (ESTILO PROFESIONAL)
+% Usa \toprule, \midrule y \bottomrule en lugar de \hline
+% NO uses líneas verticales |
+%==================================================================
+\subsection{Ejemplo de Tabla Profesional}
+\begin{table}[H]
+    \centering
+    \caption{Protocolos de red más utilizados.}
+    \label{tab:protocolos}
+    \begin{tabular}{@{}llc@{}}
+        \toprule
+        \textbf{Protocolo} & \textbf{Descripción} & \textbf{Puerto} \\
+        \midrule
+        HTTP  & Transferencia de hipertexto & 80 \\
+        HTTPS & HTTP seguro & 443 \\
+        FTP   & Transferencia de archivos & 21 \\
+        SSH   & Acceso remoto seguro & 22 \\
+        DNS   & Sistema de nombres de dominio & 53 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+%==================================================================
+% EJEMPLO DE FIGURA
+%==================================================================
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\textwidth]{taller1/google_servers.png}
-	\caption{Descripción de la imagen. Imagen de prueba.}
+    \centering
+    \includegraphics[width=0.7\textwidth]{../taller1/google_servers.png}
+    \caption{Descripción de la imagen. Imagen de prueba.}
+    \label{fig:ejemplo}
 \end{figure}
 %\end{multicols}
 
@@ -229,15 +393,15 @@ de la materia.
 \addcontentsline{toc}{section}{Referencias}
 \begin{thebibliography}{9}
 
-	% Y en el texto se citan así:
-	%... como se muestra en diversos centros de datos \cite{ref1}.
-	\bibitem{ref1}
-	Autor o Institución. \textit{Título del recurso}.
-	Recuperado de: \url{https://...}
+    % Y en el texto se citan así:
+    %... como se muestra en diversos centros de datos \cite{ref1}.
+    \bibitem{ref1}
+    Autor o Institución. \textit{Título del recurso}.
+    Recuperado de: \url{https://...}
 
-	\bibitem{ref2}
-	Autor o Institución. \textit{Título del recurso}.
-	Recuperado de: \url{https://...}
+    \bibitem{ref2}
+    Autor o Institución. \textit{Título del recurso}.
+    Recuperado de: \url{https://...}
 
 \end{thebibliography}
 

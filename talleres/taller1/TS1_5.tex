@@ -1,13 +1,33 @@
+%==================================================================
+% CLASE DEL DOCUMENTO
+%==================================================================
 \documentclass[12pt, letterpaper]{article}
+
+%==================================================================
+% IDIOMA Y CODIFICACIÓN
+%==================================================================
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel} 
+\addto\captionsspanish{\renewcommand{\contentsname}{Lista de contenido}}
+
+%==================================================================
+% FORMATO GENERAL Y HERRAMIENTAS
+%==================================================================
+\usepackage{geometry}
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+\setlength{\parskip}{1\baselineskip}
+
+\usepackage{microtype}
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{xcolor}
-\usepackage[spanish, es-tabla]{babel} 
-\addto\captionsspanish{\renewcommand{\contentsname}{Lista de contenido}}
-\usepackage{geometry}
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{titlesec}
@@ -15,21 +35,96 @@
 \usepackage{tikz}
 \usepackage{atbegshi}
 \usepackage{eso-pic}
-\usetikzlibrary{calc}
-\definecolor{VerdeMilitar}{RGB}{75, 83, 32}
-\setlength{\parskip}{1\baselineskip}
-\usepackage{microtype}
 \usepackage{multicol}
+\usepackage{booktabs}  % Para tablas profesionales
+\usepackage{array}     % Para columnas personalizadas
 
-% Configuración de márgenes
-\geometry{
-    left=2.5cm,
-    right=2.5cm,
-    top=2.5cm,
-    bottom=2.5cm
+\usetikzlibrary{calc}
+
+%==================================================================
+% COLORES Y ESTILO VISUAL
+%==================================================================
+\definecolor{VerdeMilitar}{RGB}{75, 83, 32}
+\definecolor{termback}{rgb}{0.95,0.95,0.95}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{ipcolor}{RGB}{0, 102, 204}        % Azul para IPs
+\definecolor{protocolor}{RGB}{204, 0, 102}     % Magenta para protocolos
+\definecolor{portcolor}{RGB}{0, 153, 76}       % Verde para puertos
+
+%==================================================================
+% CONFIGURACIÓN DE LISTINGS PARA NETWORKING
+%==================================================================
+
+% Estilo base común
+\lstdefinestyle{baseStyle}{
+    backgroundcolor=\color{termback},
+    commentstyle=\color{codegreen}\itshape,
+    numberstyle=\tiny\color{gray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    captionpos=b,
+    numbers=left,
+    numbersep=8pt,
+    tabsize=4,
+    showstringspaces=false
 }
 
-% Quitar bordes rojos de hipervínculos
+% Estilo para comandos Bash/Terminal
+\lstdefinestyle{bashStyle}{
+    style=baseStyle,
+    language=bash,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{codepurple},
+    morekeywords={ping, traceroute, ifconfig, ip, netstat, ss, nmap, tcpdump, wireshark, iptables, route, nslookup, dig, host, curl, wget},
+    commentstyle=\color{codegreen}\itshape,
+    morecomment=[l]{\#}
+}
+
+% Estilo para archivos de configuración
+\lstdefinestyle{configStyle}{
+    style=baseStyle,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{codepurple},
+    commentstyle=\color{codegreen}\itshape,
+    morecomment=[l]{\#}
+}
+
+% Estilo para salida de terminal (sin resaltado)
+\lstdefinestyle{outputStyle}{
+    style=baseStyle,
+    keywordstyle=\color{black},
+    numbers=none,
+    frame=none,
+    backgroundcolor=\color{black!5}
+}
+
+% Configuración por defecto (Bash)
+\lstset{style=bashStyle}
+
+%==================================================================
+% COMANDOS PERSONALIZADOS PARA REDES
+%==================================================================
+
+% Comando para direcciones IP
+\newcommand{\ip}[1]{\texttt{\textcolor{ipcolor}{#1}}}
+
+% Comando para protocolos
+\newcommand{\proto}[1]{\texttt{\textbf{\textcolor{protocolor}{#1}}}}
+
+% Comando para puertos
+\newcommand{\port}[1]{\texttt{\textcolor{portcolor}{#1}}}
+
+% Comando para comandos de red en línea
+\newcommand{\cmd}[1]{\texttt{\textbf{#1}}}
+
+% Comando para interfaces de red
+\newcommand{\iface}[1]{\texttt{\textit{#1}}}
+
+%==================================================================
+% QUITAR BORDES ROJOS DE HIPERVÍNCULOS
+%==================================================================
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
@@ -49,6 +144,7 @@
 
 % --- DATOS DEL TALLER ---
 \newcommand{\tituloTaller}{Conocer un Centro de Datos}
+\newcommand{\numeroActividad}{\#01}
 \newcommand{\unidadNumero}{1}
 \newcommand{\semanaNumero}{1}
 \newcommand{\codigoActividad}{TS1} 
@@ -82,14 +178,27 @@
     {\color{VerdeMilitar}\hrule width\headwidth height 0.5pt \vskip-\headrulewidth}
 }
 
+% Configuración de títulos con color VerdeMilitar solo en section
+\titleformat{\section}
+    {\large\bfseries\color{VerdeMilitar}}
+    {\thesection.}{1em}{}
+    
+\titleformat{\subsection}
+    {\normalsize\bfseries}
+    {\thesubsection.}{1em}{}
+
+\titleformat{\subsubsection}
+    {\small\bfseries}
+    {\thesubsubsection.}{1em}{}
+
 \begin{document}
 
 % --- PORTADA ---
 \begin{titlepage}
 	\begin{center}
-		\includegraphics[width=4cm]{../logo.png}
+		\includegraphics[width=4cm]{../recursos/logo.png}
 		\hspace{1cm}
-		\includegraphics[width=5cm]{../1593484343817.jpg}
+		\includegraphics[width=5cm]{../recursos/1593484343817.jpg}
 		\vspace{1.5cm}
 
 		\LARGE \textbf{Universidad Autónoma de Baja California}\\
@@ -98,7 +207,7 @@
 		\vspace{0.7cm}
 
 		{\color{VerdeMilitar}\rule{\linewidth}{0.5mm}} \\
-		\large \textbf{Reporte de Actividad:}\\
+		\large \textbf{Reporte de Actividad \numeroActividad}\\
 		\vspace{0.1cm}
 		{\Huge {\tituloTaller} }\\
 		{\color{VerdeMilitar}\rule{\linewidth}{0.5mm}}
@@ -114,7 +223,7 @@
 		\end{minipage}
 
 		\vfill
-		\textbf{EQUIPO \equipoNumero :}\\
+		\textbf{EQUIPO \equipoNumero}\\
 		\integranteA \\
 		\integranteB \\
 		\vspace{0.5cm}
@@ -209,34 +318,42 @@ La seguridad del centro de datos se estructura mediante un enfoque de seguridad 
 
 Los estándares más relevantes en este contexto incluyen aquellos relacionados con la infraestructura, la seguridad de la información y la continuidad del servicio, los cuales establecen lineamientos claros para la respuesta ante emergencias, incendios y fallos críticos. La certificación bajo estos estándares garantiza que el centro de datos cumpla con prácticas reconocidas a nivel internacional.
 
+% Tabla mejorada de seguridad en capas
 \begin{table}[H]
-	\centering
-	\begin{tabular}{|l|p{10cm}|}
-		\hline
-		\textbf{Capa de Seguridad} & \textbf{Descripción}                                         \\ \hline
-		Perímetro                  & Vallas, vigilancia física y control de accesos externos.     \\ \hline
-		Acceso al edificio         & Controles de identidad y sistemas biométricos.               \\ \hline
-		Áreas internas             & Segmentación de zonas y acceso restringido.                  \\ \hline
-		Piso de datos              & Acceso exclusivo a personal técnico autorizado.              \\ \hline
-		Destrucción de medios      & Eliminación física segura de dispositivos de almacenamiento. \\ \hline
-	\end{tabular}
-	\caption{Ejemplo de estructura de seguridad en capas en un centro de datos.}
+    \centering
+    \caption{Estructura de seguridad en capas en un centro de datos.}
+    \label{tab:seguridad_capas}
+    \begin{tabular}{@{}lp{10cm}@{}}
+        \toprule
+        \textbf{Capa de Seguridad} & \textbf{Descripción} \\
+        \midrule
+        Perímetro & Vallas, vigilancia física y control de accesos externos. \\
+        Acceso al edificio & Controles de identidad y sistemas biométricos. \\
+        Áreas internas & Segmentación de zonas y acceso restringido. \\
+        Piso de datos & Acceso exclusivo a personal técnico autorizado. \\
+        Destrucción de medios & Eliminación física segura de dispositivos de almacenamiento. \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 A continuación, se muestra la relación entre las capas de seguridad física observadas y algunos de los estándares internacionales que regulan su implementación.
 
+% Tabla mejorada de estándares
 \begin{table}[H]
-	\centering
-	\begin{tabular}{|l|p{10cm}|}
-		\hline
-		\textbf{Capa de Seguridad}  & \textbf{Estándar Asociado}     \\ \hline
-		Perímetro                   & ISO/IEC 22237, ANSI/TIA-942    \\ \hline
-		Acceso al edificio          & ISO/IEC 27001                  \\ \hline
-		Áreas internas              & Uptime Institute Tier Standard \\ \hline
-		Piso de datos               & ISO/IEC 27001                  \\ \hline
-		Protección contra incendios & NFPA 75 / NFPA 76              \\ \hline
-	\end{tabular}
-	\caption{Relación entre capas de seguridad física y estándares aplicables.}
+    \centering
+    \caption{Relación entre capas de seguridad física y estándares aplicables.}
+    \label{tab:estandares}
+    \begin{tabular}{@{}lp{10cm}@{}}
+        \toprule
+        \textbf{Capa de Seguridad} & \textbf{Estándar Asociado} \\
+        \midrule
+        Perímetro & ISO/IEC 22237, ANSI/TIA-942 \\
+        Acceso al edificio & ISO/IEC 27001 \\
+        Áreas internas & Uptime Institute Tier Standard \\
+        Piso de datos & ISO/IEC 27001 \\
+        Protección contra incendios & NFPA 75 / NFPA 76 \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 \begin{figure}[H]
@@ -273,7 +390,7 @@ Desde una perspectiva empresarial, la rentabilidad de los centros de datos se fu
 
 \begin{figure}[H]
 	\centering
-	\fbox{\includegraphics[width=0.7\textwidth]{ejemplos_de_servicios en la nube.png}}
+	\fbox{\includegraphics[width=0.9\textwidth]{ejemplos_de_servicios en la nube.png}}
 	\caption{Ejemplos de servicios de computación en la nube.}
 \end{figure}
 
